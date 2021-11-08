@@ -87,7 +87,8 @@ namespace PoS
 
             bt_salir.Size = new Size((bt_numpad_size * 2) + bt_numpad_padding, bt_numpad_size);
             bt_salir.Location = new Point(tb_input.Location.X + tb_input.Width - bt_salir.Width, dgv_productos.Location.Y - bt_numpad_size - bt_numpad_padding);
-
+            lbl_username.Location = new Point(bt_personalizar.Location.X + bt_personalizar.Width + bt_numpad_padding, bt_personalizar.Location.Y);
+            lbl_username.Text = "Le atiende: " + FormLogin.username;
             CalcularTotal();
         }
 

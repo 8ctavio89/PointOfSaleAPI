@@ -33,6 +33,7 @@ namespace PoS
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
 			System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(PuntoDeVenta));
 			this.lb_fecha = new System.Windows.Forms.Label();
 			this.timer1 = new System.Windows.Forms.Timer(this.components);
 			this.dgv_productos = new System.Windows.Forms.DataGridView();
@@ -64,6 +65,7 @@ namespace PoS
 			this.cd_color = new System.Windows.Forms.ColorDialog();
 			this.bt_personalizar = new System.Windows.Forms.Button();
 			this.bt_salir = new System.Windows.Forms.Button();
+			this.lbl_username = new System.Windows.Forms.Label();
 			((System.ComponentModel.ISupportInitialize)(this.dgv_productos)).BeginInit();
 			((System.ComponentModel.ISupportInitialize)(this.pb_logo)).BeginInit();
 			this.SuspendLayout();
@@ -169,9 +171,10 @@ namespace PoS
 			// 
 			// pb_logo
 			// 
-			this.pb_logo.Location = new System.Drawing.Point(284, 3);
+			this.pb_logo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pb_logo.BackgroundImage")));
+			this.pb_logo.Location = new System.Drawing.Point(248, 3);
 			this.pb_logo.Name = "pb_logo";
-			this.pb_logo.Size = new System.Drawing.Size(234, 107);
+			this.pb_logo.Size = new System.Drawing.Size(270, 107);
 			this.pb_logo.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
 			this.pb_logo.TabIndex = 6;
 			this.pb_logo.TabStop = false;
@@ -416,12 +419,23 @@ namespace PoS
 			this.bt_salir.UseVisualStyleBackColor = false;
 			this.bt_salir.Click += new System.EventHandler(this.bt_salir_Click);
 			// 
+			// lbl_username
+			// 
+			this.lbl_username.AutoSize = true;
+			this.lbl_username.Font = new System.Drawing.Font("Segoe UI", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+			this.lbl_username.Location = new System.Drawing.Point(161, 13);
+			this.lbl_username.Name = "lbl_username";
+			this.lbl_username.Size = new System.Drawing.Size(81, 30);
+			this.lbl_username.TabIndex = 27;
+			this.lbl_username.Text = "usuario";
+			// 
 			// PuntoDeVenta
 			// 
 			this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(213)))), ((int)(((byte)(232)))), ((int)(((byte)(212)))));
 			this.ClientSize = new System.Drawing.Size(800, 450);
+			this.Controls.Add(this.lbl_username);
 			this.Controls.Add(this.bt_salir);
 			this.Controls.Add(this.bt_personalizar);
 			this.Controls.Add(this.bt_limpiar);
@@ -494,5 +508,6 @@ namespace PoS
         private System.Windows.Forms.ColorDialog cd_color;
         private System.Windows.Forms.Button bt_personalizar;
         private System.Windows.Forms.Button bt_salir;
-    }
+		private System.Windows.Forms.Label lbl_username;
+	}
 }
