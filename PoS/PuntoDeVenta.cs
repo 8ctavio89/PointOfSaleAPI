@@ -1,11 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
 using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -26,10 +20,12 @@ namespace PoS
             //lb_autor.Location = new Point(this.Width / 2 - lb_autor.Width / 2, lb_bienvenido.Height);
             pb_logo.Location = new Point(this.Width / 2 - pb_logo.Width / 2, 0);
             lb_fecha.Text = DateTime.Now.ToLongTimeString() + " " + DateTime.Now.ToLongDateString();
-            lb_fecha.Location = new Point(this.Width / 2 - lb_fecha.Width / 2, pb_logo.Height);
+            lbl_username.Text = "Le atiende: " + FormLogin.username;
+            lbl_username.Location = new Point(this.Width / 2 - lbl_username.Width / 2, pb_logo.Location.Y + pb_logo.Height);
+            lb_fecha.Location = new Point(this.Width / 2 - lb_fecha.Width / 2, lbl_username.Location.Y + lbl_username.Height);
             dgv_productos.Location = new Point(10, lb_fecha.Location.Y + lb_fecha.Height);
             dgv_productos.Width = (int)Math.Round((this.Width-10) * 0.7);
-            dgv_productos.Height = this.Height - pb_logo.Height - lb_fecha.Height;
+            dgv_productos.Height = this.Height - (lb_fecha.Location.Y + lb_fecha.Height);
             //MessageBox.Show(this.Width + "  " + this.Height);
             //this.BackColor = Color.FromArgb(213, 232, 212);
             dgv_productos.Columns[0].Width = dgv_productos.Width * 15 / 100;
@@ -87,8 +83,6 @@ namespace PoS
 
             bt_salir.Size = new Size((bt_numpad_size * 2) + bt_numpad_padding, bt_numpad_size);
             bt_salir.Location = new Point(tb_input.Location.X + tb_input.Width - bt_salir.Width, dgv_productos.Location.Y - bt_numpad_size - bt_numpad_padding);
-            lbl_username.Location = new Point(bt_personalizar.Location.X + bt_personalizar.Width + bt_numpad_padding, bt_personalizar.Location.Y);
-            lbl_username.Text = "Le atiende: " + FormLogin.username;
             CalcularTotal();
         }
 
@@ -118,7 +112,7 @@ namespace PoS
 
             try
             {
-                MySqlConnection mySqlConnection = new MySqlConnection("server=127.0.0.1; user=root; database=posapi; SSL mode=none");
+                MySqlConnection mySqlConnection = new MySqlConnection("server=127.0.0.1; user=root; database=pos; SSL mode=none");
                 mySqlConnection.Open();
                 MySqlCommand mySqlCommand = new MySqlCommand(query, mySqlConnection);
                 MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader();
