@@ -69,11 +69,11 @@
   <metadata name="Column4.UserAddedColumn" type="System.Boolean, System.Private.CoreLib, Version=5.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e">
     <value>True</value>
   </metadata>
-  <assembly alias="System.Drawing.Common" name="System.Drawing.Common, Version=5.0.0.2, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
-  <data name="pb_logo.BackgroundImage" type="System.Drawing.Bitmap, System.Drawing.Common" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <assembly alias="System.Drawing.Common" name="System.Drawing.Common, Version=5.0.0.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51" />
+  <data name="pb_logo.Image" type="System.Drawing.Bitmap, System.Drawing.Common" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAQ4AAABkCAYAAAB3qd4tAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAL
-        DAAACwwBP0AiyAAAABt0RVh0U29mdHdhcmUAQ2Vsc3lzIFN0dWRpbyBUb29swafhfAAAJJ5JREFUeF7t
+        EAAACxABrSO9dQAAABt0RVh0U29mdHdhcmUAQ2Vsc3lzIFN0dWRpbyBUb29swafhfAAAJJ5JREFUeF7t
         nQ/oLUXZx0MiRMJEIiR8La4hEmIhESHSKyISEiYiIhEVIiERtRwkIsK6XkLiXpGIiBd5ERHZExIXkRAR
         kYiIELnIRUQkRC5yERGRELmI3L7fffbZeWb2md2z5+y5v/P7OQufMzvPzDOz/+Y5s/NvP3H27NlCoVCY
         hCssFAqFIVxhoVAoDOEKC4VCYQhXWCgUCkO4wkKhUBjCFRYKhcIQrrBQKBSGcIX7EWxfAQ+B51u4/+uW

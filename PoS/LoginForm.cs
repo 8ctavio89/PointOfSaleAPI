@@ -7,7 +7,6 @@ namespace PoS
 {
     public partial class FormLogin : Form
     {
-        public static String username;
 
         public FormLogin()
         {
@@ -46,8 +45,12 @@ namespace PoS
                     if (mySqlDataReader.HasRows)
                     {
                         mySqlDataReader.Read();
-                        username = $"{mySqlDataReader.GetString(1)} {mySqlDataReader.GetString(2)} {mySqlDataReader.GetString(3)}";
-                        MessageBox.Show("Bienvenido/a");
+
+                        Usuario.NumeroDeEmpleado = mySqlDataReader.GetInt32(0);
+                        Usuario.NombreEmpleado = mySqlDataReader.GetString(1);
+                        Usuario.ApellidoPaternoEmpleado = mySqlDataReader.GetString(2);
+                        Usuario.ApellidoMaternoEmpleado = mySqlDataReader.GetString(3);
+
                         this.Hide();
                         new PuntoDeVenta().ShowDialog();
                         this.Show();
