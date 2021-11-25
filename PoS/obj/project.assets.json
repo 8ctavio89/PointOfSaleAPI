@@ -839,23 +839,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Usario\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\ELG\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\Usario\\Documents\\API_II\\PointOfSaleAPI\\PoS\\PoS.csproj",
+      "projectUniqueName": "D:\\Users\\ELG\\Source\\Repos\\PointOfSaleAPI\\PoS\\PoS.csproj",
       "projectName": "PoS",
-      "projectPath": "C:\\Users\\Usario\\Documents\\API_II\\PointOfSaleAPI\\PoS\\PoS.csproj",
-      "packagesPath": "C:\\Users\\Usario\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\Usario\\Documents\\API_II\\PointOfSaleAPI\\PoS\\obj\\",
+      "projectPath": "D:\\Users\\ELG\\Source\\Repos\\PointOfSaleAPI\\PoS\\PoS.csproj",
+      "packagesPath": "C:\\Users\\ELG\\.nuget\\packages\\",
+      "outputPath": "D:\\Users\\ELG\\Source\\Repos\\PointOfSaleAPI\\PoS\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\Usario\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\ELG\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -904,7 +900,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.103\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.201\\RuntimeIdentifierGraph.json"
       }
     }
   }

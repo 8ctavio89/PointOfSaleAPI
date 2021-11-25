@@ -12,6 +12,7 @@ namespace PoS
 		private static string _nombreEmpleado;
 		private static string _apellidoPaternoEmpleado;
 		private static string _apellidoMaternoEmpleado;
+		private static int _administrador;
 
 		public static int NumeroDeEmpleado
 		{
@@ -35,6 +36,12 @@ namespace PoS
 		{
 			get { return _apellidoMaternoEmpleado; }
 			set { _apellidoMaternoEmpleado = value; }
+		}
+
+		public static int Administrador
+		{
+			get { return _administrador; }
+			set { _administrador = value; }
 		}
 	}
 }

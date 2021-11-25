@@ -13,13 +13,15 @@ namespace PoS
         private string input = "";
         Dictionary<string, int> productoVenta = new Dictionary<string, int>();
         List<Producto> productos = new List<Producto>();
+        FormLogin formLogin;
 
 
         string query_ventas = $"INSERT INTO ventas(fecha_venta, hora_venta, operador_venta) VALUES (CURDATE(), CURTIME(), {Usuario.NumeroDeEmpleado});";
 
-        public PuntoDeVenta()
+        public PuntoDeVenta(FormLogin formLogin)
         {
             InitializeComponent();
+            this.formLogin = formLogin;
         }
 
         private void PuntoDeVenta_Load(object sender, EventArgs e)
@@ -378,7 +380,10 @@ namespace PoS
 
         private void bt_salir_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            //Application.Exit();
+            formLogin.CleanFields();
+            formLogin.Show();
+            this.Close();
         }
     }
 }
