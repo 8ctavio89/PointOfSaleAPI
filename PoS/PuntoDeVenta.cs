@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
+using System.Linq;
 using System.Windows.Forms;
 using MySql.Data.MySqlClient;
 
@@ -9,9 +11,17 @@ namespace PoS
     {
         private double total = 0.0;
         private string input = "";
-        public PuntoDeVenta()
+        Dictionary<string, int> productoVenta = new Dictionary<string, int>();
+        List<Producto> productos = new List<Producto>();
+        FormLogin formLogin;
+
+
+        string query_ventas = $"INSERT INTO ventas(fecha_venta, hora_venta, operador_venta) VALUES (CURDATE(), CURTIME(), {Usuario.NumeroDeEmpleado});";
+
+        public PuntoDeVenta(FormLogin formLogin)
         {
             InitializeComponent();
+            this.formLogin = formLogin;
         }
 
         private void PuntoDeVenta_Load(object sender, EventArgs e)
@@ -20,7 +30,7 @@ namespace PoS
             //lb_autor.Location = new Point(this.Width / 2 - lb_autor.Width / 2, lb_bienvenido.Height);
             pb_logo.Location = new Point(this.Width / 2 - pb_logo.Width / 2, 0);
             lb_fecha.Text = DateTime.Now.ToLongTimeString() + " " + DateTime.Now.ToLongDateString();
-            lbl_username.Text = "Le atiende: " + FormLogin.username;
+            lbl_username.Text = $"Le atiende: {Usuario.NombreEmpleado} {Usuario.ApellidoPaternoEmpleado} {Usuario.ApellidoMaternoEmpleado}";
             lbl_username.Location = new Point(this.Width / 2 - lbl_username.Width / 2, pb_logo.Location.Y + pb_logo.Height);
             lb_fecha.Location = new Point(this.Width / 2 - lb_fecha.Width / 2, lbl_username.Location.Y + lbl_username.Height);
             dgv_productos.Location = new Point(10, lb_fecha.Location.Y + lb_fecha.Height);
@@ -118,16 +128,49 @@ namespace PoS
                 MySqlDataReader mySqlDataReader = mySqlCommand.ExecuteReader();
                 if (mySqlDataReader.HasRows)
                 {
+                    
                     mySqlDataReader.Read();
-                    dgv_productos.Rows.Add("1", mySqlDataReader.GetString(1), String.Format("{0:0.00}", mySqlDataReader.GetDouble(3)), String.Format("{0:0.00}", mySqlDataReader.GetDouble(3)));
+
+                    Producto productoNuevo = new Producto(mySqlDataReader.GetInt32(0),
+                                                          mySqlDataReader.GetString(1),
+                                                          mySqlDataReader.GetInt32(2),
+                                                          mySqlDataReader.GetDouble(3));
+
+                    productoNuevo.productoIdentificador = Guid.NewGuid();
+
+                    productos.Add(productoNuevo);
+
+                    if (productoVenta.ContainsKey(productoNuevo.ProductoNombre))
+                    {
+                        productoVenta[productoNuevo.ProductoNombre]++;
+
+                        foreach (DataGridViewRow row in dgv_productos.Rows)
+                        {
+                            if (row.Cells[1].Value.ToString() == productoNuevo.ProductoNombre)
+                            {
+                                row.Cells[0].Value = productoVenta[productoNuevo.ProductoNombre];
+                                row.Cells[3].Value = String.Format("{0:0.00}", productoVenta[productoNuevo.ProductoNombre] * Convert.ToDouble(row.Cells[2].Value.ToString()));
+                            }
+                        }
+                    }
+                    else
+                    {
+                        productoVenta[productoNuevo.ProductoNombre] = 1;
+                        dgv_productos.Rows.Add(productoVenta[productoNuevo.ProductoNombre], 
+                                               productoNuevo.ProductoNombre, 
+                                               String.Format("{0:0.00}", productoNuevo.ProductoPrecio), 
+                                               String.Format("{0:0.00}", productoNuevo.ProductoPrecio * productoVenta[productoNuevo.ProductoNombre]));
+                    }
 
                     CalcularTotal();
                     input = "";
                     tb_input.Clear();
                     tb_input.Focus();
+
                 }
                 else
                 {
+                    MessageBox.Show($"El producto con el código {tb_input.Text} no existe.");
                     input = "";
                     tb_input.Clear();
                 }
@@ -147,12 +190,60 @@ namespace PoS
                 return;
             }
 
+            if (Convert.ToInt32(tb_input.Text.ToString()) < total)
+            {
+                lb_total.Text = $"No se puede pagar con tal cantidad. Se espera una cantidad igual o mayor.";
+                return;
+            }
+
+            try
+            {
+                MySqlConnection mySqlConnection = new MySqlConnection("server=127.0.0.1; user=root; database=pos; SSL mode=none");
+                mySqlConnection.Open();
+                MySqlCommand mySqlCommand = new MySqlCommand(query_ventas, mySqlConnection);
+                mySqlCommand.ExecuteNonQuery();
+                mySqlConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo realizar la venta.");
+            }
+
+            try
+            {
+                MySqlConnection mySqlConnection = new MySqlConnection("server=127.0.0.1; user=root; database=pos; SSL mode=none");
+                mySqlConnection.Open();
+                MySqlCommand mySqlCommand = null;
+
+                foreach (KeyValuePair<string, int> element in productoVenta)
+                {
+                    var product = productos.Where(x => x.ProductoNombre == element.Key);
+                    var producto_objeto = productos.Find(x => x.ProductoNombre.Contains(element.Key));
+                    var producto_cantidad = product.Count();
+
+                    string query_detalles = $"INSERT INTO ventas_detalle (id_venta, id_producto, producto_cantidad, precio_producto) VALUES ((SELECT MAX(id_venta) FROM ventas), {producto_objeto.ProductoCodigo}, {producto_cantidad}, {producto_objeto.ProductoPrecio});";
+                    mySqlCommand = new MySqlCommand(query_detalles, mySqlConnection);
+                    mySqlCommand.ExecuteNonQuery();
+                }
+
+
+                mySqlConnection.Close();
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("No se pudo realizar la venta.");
+            }
+
+            
+
             lb_total.Text = $"Cambio: {Math.Round(Convert.ToDouble(tb_input.Text) - total, 2)}";
             dgv_productos.Rows.Clear();
             total = 0;
             input = "";
             tb_input.Clear();
             tb_input.Focus();
+            productoVenta.Clear();
+            productos.Clear();
         }
 
         private void PuntoDeVenta_KeyPress(object sender, KeyPressEventArgs e)
@@ -231,7 +322,18 @@ namespace PoS
         {
             if (dgv_productos.Rows.Count > 0)
             {
-                dgv_productos.Rows.RemoveAt(dgv_productos.Rows.Count - 1);
+				for (int i = 0; i < productos.Count; i++)
+				{
+                    if (dgv_productos.Rows[dgv_productos.CurrentCell.RowIndex].Cells[1].Value.ToString() == productos[i].ProductoNombre)
+                    {
+                        //productos.Remove(productos[i]);
+                        productoVenta.Remove(dgv_productos.Rows[dgv_productos.CurrentCell.RowIndex].Cells[1].Value.ToString());
+                        productos.RemoveAt(i);
+                    }
+                }
+
+                dgv_productos.Rows.RemoveAt(dgv_productos.CurrentCell.RowIndex);
+
                 CalcularTotal();
             }
             tb_input.Focus();
@@ -242,8 +344,11 @@ namespace PoS
             while (dgv_productos.Rows.Count > 0)
             {
                 dgv_productos.Rows.RemoveAt(dgv_productos.Rows.Count - 1);
+                productoVenta.Clear();
                 CalcularTotal();
             }
+            productoVenta.Clear();
+            productos.Clear();
             tb_input.Focus();
         }
 
@@ -264,6 +369,8 @@ namespace PoS
             input = "";
             tb_input.Clear();
             tb_input.Focus();
+            productoVenta.Clear();
+            productos.Clear();
         }
 
         private void bt_personalizar_Click(object sender, EventArgs e)
@@ -274,7 +381,10 @@ namespace PoS
 
         private void bt_salir_Click(object sender, EventArgs e)
         {
-            Application.Exit();
+            //Application.Exit();
+            formLogin.CleanFields();
+            formLogin.Show();
+            this.Close();
         }
     }
 }

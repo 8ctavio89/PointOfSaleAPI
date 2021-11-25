@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "j5CBLHkDpURQEyD7M20d5kmmkXforx5XtiXFgex4HOVjXASKJR5Tnia8Nt+EdsbUKUVDaUadnEHXi83MAyPHsA==",
+  "dgSpecHash": "TKxfCgDl0KH5HgGEEm02T0iM9QxROq0t/s1+KhLdjYOt9b+9hdqL7zsuft1SoPKGidb1b8e00f0kI1nAi6WgNQ==",
   "success": true,
-  "projectFilePath": "D:\\Users\\ELG\\source\\repos\\PoS\\PoS\\PoS.csproj",
+  "projectFilePath": "D:\\Users\\ELG\\Source\\Repos\\PointOfSaleAPI\\PoS\\PoS.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\ELG\\.nuget\\packages\\bouncycastle.netcore\\1.8.5\\bouncycastle.netcore.1.8.5.nupkg.sha512",
     "C:\\Users\\ELG\\.nuget\\packages\\google.protobuf\\3.14.0\\google.protobuf.3.14.0.nupkg.sha512",

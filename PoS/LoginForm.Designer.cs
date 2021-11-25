@@ -90,8 +90,8 @@ namespace PoS
             // 
             // pb_logo
             // 
-            this.pb_logo.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("pb_logo.BackgroundImage")));
             this.pb_logo.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Zoom;
+            this.pb_logo.Image = ((System.Drawing.Image)(resources.GetObject("pb_logo.Image")));
             this.pb_logo.Location = new System.Drawing.Point(36, 147);
             this.pb_logo.MaximumSize = new System.Drawing.Size(400, 400);
             this.pb_logo.Name = "pb_logo";
@@ -113,6 +113,7 @@ namespace PoS
             this.Controls.Add(this.txt_username);
             this.Controls.Add(this.lbl_password);
             this.Controls.Add(this.lbl_username);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.MaximizeBox = false;
             this.Name = "FormLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
