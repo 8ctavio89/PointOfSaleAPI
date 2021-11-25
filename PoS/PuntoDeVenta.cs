@@ -322,12 +322,13 @@ namespace PoS
         {
             if (dgv_productos.Rows.Count > 0)
             {
-
 				for (int i = 0; i < productos.Count; i++)
 				{
                     if (dgv_productos.Rows[dgv_productos.CurrentCell.RowIndex].Cells[1].Value.ToString() == productos[i].ProductoNombre)
                     {
-                        productos.Remove(productos[i]);
+                        //productos.Remove(productos[i]);
+                        productoVenta.Remove(dgv_productos.Rows[dgv_productos.CurrentCell.RowIndex].Cells[1].Value.ToString());
+                        productos.RemoveAt(i);
                     }
                 }
 
