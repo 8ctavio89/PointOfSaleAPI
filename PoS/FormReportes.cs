@@ -26,7 +26,7 @@ namespace PoS
             int padding = 10;
             pb_logo.Location = new Point(this.Width - pb_logo.Width - padding*2, padding);
             lb_fecha.Text = DateTime.Now.ToLongTimeString() + " " + DateTime.Now.ToLongDateString();
-            lbl_username.Text = $"Le atiende: {Usuario.NombreEmpleado} {Usuario.ApellidoPaternoEmpleado} {Usuario.ApellidoMaternoEmpleado}";
+            lbl_username.Text = $"Usuario: {Usuario.NombreEmpleado} {Usuario.ApellidoPaternoEmpleado} {Usuario.ApellidoMaternoEmpleado}";
             lbl_username.Location = new Point(this.Width / 2 - lbl_username.Width / 2, padding);
             lb_fecha.Location = new Point(this.Width / 2 - lb_fecha.Width / 2, lbl_username.Location.Y + lbl_username.Height);
 
